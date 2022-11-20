@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ProductService} from "../services/product.service";
 import {Product} from "../models/product.model";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {AuthenticationService} from "../services/authentication.service";
 
 @Component({
   selector: 'app-products',
@@ -18,7 +19,8 @@ export class ProductsComponent implements OnInit {
   currentAction : string = "all";
 
   constructor(private productService : ProductService,
-              private formBuilder : FormBuilder) { }
+              private formBuilder : FormBuilder,
+              public authService : AuthenticationService) { }
 
   ngOnInit(): void {
     this.searchFormGroup = this.formBuilder.group({
