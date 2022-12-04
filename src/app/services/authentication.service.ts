@@ -12,6 +12,7 @@ export class AuthenticationService {
   authenticatedUser : AppUser | undefined;
 
   constructor() {
+    this.users.push({userId : UUID.UUID(), username : "admin", password : "admin", roles : ["USER","ADMIN"]});
     this.users.push({userId : UUID.UUID(), username : "user1", password : "1234", roles : ["USER","ADMIN"]});
     this.users.push({userId : UUID.UUID(), username : "user2", password : "1234", roles : ["USER"]});
     this.users.push({userId : UUID.UUID(), username : "user3", password : "1234", roles : ["USER"]});
