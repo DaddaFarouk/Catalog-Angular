@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Customer} from "../../models/customer.model";
 import {CustomerService} from "../../services/customer/customer.service";
+import {Customer} from "../../models/customer.model";
 
 @Component({
   selector: 'app-edit-customer',
@@ -11,7 +11,7 @@ import {CustomerService} from "../../services/customer/customer.service";
 })
 export class EditCustomerComponent implements OnInit {
 
-  customerId : string;
+  customerId : number;
   customer! : Customer;
   customerFormGroup! : FormGroup;
 

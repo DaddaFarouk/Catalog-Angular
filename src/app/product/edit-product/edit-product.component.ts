@@ -11,7 +11,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 export class EditProductComponent implements OnInit {
 
-  productId : string;
+  productId : number;
   product! : Product;
   productFormGroup! : FormGroup;
 

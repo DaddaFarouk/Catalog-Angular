@@ -33,7 +33,7 @@ export class ProductService {
     return this.http.post<Product>(this.productsServiceUrl,product);
   }
 
-  public getProduct(id : string) : Observable<Product> {
+  public getProduct(id : number) : Observable<Product> {
     let product = this.http.get<Product>(this.productsServiceUrl + "/" + id)
     if(product == undefined) return throwError(()=> new Error("Product not found"));
     return product;

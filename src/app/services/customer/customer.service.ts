@@ -33,7 +33,7 @@ export class CustomerService {
     return this.http.post<Customer>(this.customersServiceUrl,customer);
   }
 
-  public getCustomer(id : string) : Observable<Customer> {
+  public getCustomer(id : number) : Observable<Customer> {
     let product = this.http.get<Customer>(this.customersServiceUrl + "/" + id)
     if(product == undefined) return throwError(()=> new Error("Product not found"));
     return product;
