@@ -1,0 +1,55 @@
+<div class="container">
+  <ng-template #errors>
+    <div class="text-danger">
+      {{errorMessage}}
+    </div>
+  </ng-template>
+  <div class="card  mt-2" *ngIf="customers; else errors">
+    <div class="card-header">Customers List</div>
+    <div class="card-body">
+      <div class="row d-flex align-items-center">
+        <div class="col">
+          <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearchCustomers()">
+            <div class="input-group">
+              <label class="input-group-text">Keyword: </label>
+              <input type="text" class="form-control" formControlName="keyword">
+              <button class="btn btn-outline-primary">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="col col-lg-2">
+          <nav class="p-2 text-center">
+            <button *ngIf="authService.hasRole('ADMIN')" class="btn btn-primary" (click)="handleNewCustomer()">New Customer</button>
+          </nav>
+        </div>
+      </div>
+      <table class="table table-hover mt-2">
+        <thead>
+        <tr class="text-center">
+          <th>ID</th> <th>Name</th><th>Email</th><th></th><th></th><th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let c of customers" class="text-center">
+          <td>{{c.id}}</td>
+          <td>{{c.name}}</td>
+          <td>{{c.email}}</td>
+          <td *ngIf="authService.hasRole('ADMIN')">
+            <button (click)="handleDeleteCustomer(c)" class="btn btn-danger">
+              <i class="bi bi-trash"> </i>
+            </button>
+          </td>
+          <td *ngIf="authService.hasRole('ADMIN')">
+            <button (click)="handleEditCustomer(c)" class="btn btn-success">
+              <i class="bi bi-pencil"></i>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

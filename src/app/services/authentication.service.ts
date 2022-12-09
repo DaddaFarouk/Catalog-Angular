@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {AppUser} from "../models/user.model";
-import {UUID} from "angular2-uuid";
 import {Observable, of, throwError} from "rxjs";
+import * as uuid from "uuid";
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +12,10 @@ export class AuthenticationService {
   authenticatedUser : AppUser | undefined;
 
   constructor() {
-    this.users.push({userId : UUID.UUID(), username : "admin", password : "admin", roles : ["USER","ADMIN"]});
-    this.users.push({userId : UUID.UUID(), username : "user1", password : "1234", roles : ["USER","ADMIN"]});
-    this.users.push({userId : UUID.UUID(), username : "user2", password : "1234", roles : ["USER"]});
-    this.users.push({userId : UUID.UUID(), username : "user3", password : "1234", roles : ["USER"]});
+    this.users.push({userId : uuid.v4(), username : "admin", password : "admin", roles : ["USER","ADMIN"]});
+    this.users.push({userId : uuid.v4(), username : "user1", password : "1234", roles : ["USER","ADMIN"]});
+    this.users.push({userId : uuid.v4(), username : "user2", password : "1234", roles : ["USER"]});
+    this.users.push({userId : uuid.v4(), username : "user3", password : "1234", roles : ["USER"]});
   }
 
   public login(username : string, password : string) : Observable<AppUser> {

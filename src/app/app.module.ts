@@ -4,14 +4,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductsComponent } from './product/products/products.component';
-import { CustomersComponent } from './customers/customers.component';
+import { CustomersComponent } from './customer/customers/customers.component';
 import {ReactiveFormsModule} from "@angular/forms";
-import { LoginComponent } from './login/login.component';
-import { AdminTemplateComponent } from './admin-template/admin-template.component';
+import { LoginComponent } from './auth/login/login.component';
+import { AdminTemplateComponent } from './auth/admin-template/admin-template.component';
 import { NewProductComponent } from './product/new-product/new-product.component';
 import { EditProductComponent } from './product/edit-product/edit-product.component';
-import {ProductService} from "./services/product.service";
+import {ProductService} from "./services/product/product.service";
 import {HttpClientModule} from "@angular/common/http";
+import { NewCustomerComponent } from './customer/new-customer/new-customer.component';
+import { EditCustomerComponent } from './customer/edit-customer/edit-customer.component';
+import {CustomerService} from "./services/customer/customer.service";
 
 @NgModule({
   declarations: [
@@ -21,7 +24,9 @@ import {HttpClientModule} from "@angular/common/http";
     LoginComponent,
     AdminTemplateComponent,
     NewProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    NewCustomerComponent,
+    EditCustomerComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +34,10 @@ import {HttpClientModule} from "@angular/common/http";
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [ProductService],
+  providers: [
+    ProductService,
+    CustomerService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
