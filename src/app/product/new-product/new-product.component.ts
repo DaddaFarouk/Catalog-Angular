@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ProductService} from "../services/product.service";
+import {ProductService} from "../../services/product.service";
 
 @Component({
   selector: 'app-new-product',
@@ -19,6 +19,7 @@ export class NewProductComponent implements OnInit {
     this.productFormGroup = this.formBuilder.group({
       name : this.formBuilder.control(null, [Validators.required, Validators.minLength(4)]),
       price : this.formBuilder.control(null, [Validators.required,Validators.min(200)]),
+      quantity : this.formBuilder.control(null, [Validators.required]),
       promotion : this.formBuilder.control(false, [Validators.required]),
     });
   }

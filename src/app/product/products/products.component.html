@@ -1,7 +1,4 @@
 <div class="container">
-  <nav class="p-2 m-2">
-    <button *ngIf="authService.hasRole('ADMIN')" class="btn btn-outline-info" (click)="handleNewProduct()">New Product</button>
-  </nav>
   <ng-template #errors>
     <div class="text-danger">
       {{errorMessage}}
@@ -10,26 +7,36 @@
   <div class="card  mt-2" *ngIf="products; else errors">
     <div class="card-header">Products List</div>
     <div class="card-body">
-      <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearchProducts()">
-        <div class="input-group">
-          <label class="input-group-text">Keyword: </label>
-          <input type="text" class="form-control" formControlName="keyword">
-          <button class="btn btn-info">
-            <i class="bi bi-search"></i>
-          </button>
+      <div class="row d-flex align-items-center">
+        <div class="col">
+          <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearchProducts()">
+            <div class="input-group">
+              <label class="input-group-text">Keyword: </label>
+              <input type="text" class="form-control" formControlName="keyword">
+              <button class="btn btn-outline-primary">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
+        <div class="col col-lg-2">
+          <nav class="p-2 text-center">
+            <button *ngIf="authService.hasRole('ADMIN')" class="btn btn-primary" (click)="handleNewProduct()">New Product</button>
+          </nav>
+        </div>
+      </div>
       <table class="table table-hover mt-2">
         <thead>
-          <tr>
-            <th>ID</th> <th>Name</th> <th>Price</th><th></th><th></th><th></th>
+          <tr class="text-center">
+            <th>ID</th> <th>Name</th><th>Quantity</th><th>Price</th><th></th><th></th><th></th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let p of products">
+          <tr *ngFor="let p of products" class="text-center">
             <td>{{p.id}}</td>
             <td>{{p.name}}</td>
-            <td>{{p.price}}</td>
+            <td>{{p.quantity}}</td>
+            <td>{{p.price}} Dh</td>
             <td *ngIf="authService.hasRole('ADMIN')">
               <button (click)="handleSetPromotion(p)" class="btn">
                 <span *ngIf="p.promotion==true"><i class="bi bi-heart-fill text-success"></i></span>
@@ -42,18 +49,13 @@
               </button>
             </td>
             <td *ngIf="authService.hasRole('ADMIN')">
-              <button (click)="handleEditProduct(p)" class="btn btn-secondary">
-                <i class="bi bi-file"> </i>
+              <button (click)="handleEditProduct(p)" class="btn btn-success">
+                <i class="bi bi-pencil"></i>
               </button>
             </td>
           </tr>
         </tbody>
       </table>
-      <ul class="nav nav-pills">
-        <li *ngFor="let item of [].constructor(this.totalPages); let i = index">
-          <a (click)="goToPage(i)" [ngClass]="i==currentPage?'btn-info':'btn-outline-info'" class="btn ms-1 mt-1">{{i}}</a>
-        </li>
-      </ul>
     </div>
   </div>
 </div>

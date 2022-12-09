@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {ProductService} from "../services/product.service";
-import {Product} from "../models/product.model";
+import {ActivatedRoute, Router} from "@angular/router";
+import {ProductService} from "../../services/product.service";
+import {Product} from "../../models/product.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -17,7 +17,8 @@ export class EditProductComponent implements OnInit {
 
   constructor(private activatedRoute : ActivatedRoute,
               public productService : ProductService,
-              private formBuilder : FormBuilder
+              private formBuilder : FormBuilder,
+              private router:Router
               ) {
     this.productId = this.activatedRoute.snapshot.params['id'];
   }
@@ -29,7 +30,8 @@ export class EditProductComponent implements OnInit {
         this.productFormGroup = this.formBuilder.group({
           name : this.formBuilder.control(this.product.name, [Validators.required, Validators.minLength(4)]),
           price : this.formBuilder.control(this.product.price, [Validators.required,Validators.min(200)]),
-          promotion : this.formBuilder.control(this.product.promotion, [Validators.required]),
+          promotion : this.formBuilder.control(this.product.promotion),
+          quantity : this.formBuilder.control(this.product.quantity, [Validators.required]),
         });
       },
       error : (err) => {
@@ -44,6 +46,7 @@ export class EditProductComponent implements OnInit {
     this.productService.updateProduct(retrievedProduct).subscribe({
       next : () => {
         alert("Product updated successfully")
+        this.router.navigateByUrl("/admin/products").then( () => {})
       },
       error : err => {
         console.log(err)

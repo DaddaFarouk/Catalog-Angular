@@ -1,8 +1,8 @@
 <div class="container mt-3 col-md-6 offset-md-3">
-  <form [formGroup]="productFormGroup" (ngSubmit)="handleUpdateProduct()">
+  <form [formGroup]="productFormGroup" *ngIf="productFormGroup" (ngSubmit)="handleUpdateProduct()">
     <div class="mb-3">
       <label class="form-label">ID : </label>
-      <label class="form-label">{{product.id}} </label>
+      <label class="form-label">{{product.id}}</label>
     </div>
     <div class="mb-3">
       <label class="form-label">Name</label>
@@ -16,6 +16,13 @@
       <input type="text" formControlName="price" class="form-control">
       <small *ngIf="productFormGroup.controls['price'].errors && productFormGroup.controls['price'].touched" class="text-danger">
         {{productService.getErrorMessage('Price', productFormGroup.controls['price'].errors)}}
+      </small>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Quantity</label>
+      <input type="text" formControlName="quantity" class="form-control">
+      <small *ngIf="productFormGroup.controls['quantity'].errors && productFormGroup.controls['quantity'].touched" class="text-danger">
+        {{productService.getErrorMessage('Quantity', productFormGroup.controls['quantity'].errors)}}
       </small>
     </div>
     <div class="mb-3">
