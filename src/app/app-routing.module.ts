@@ -10,6 +10,7 @@ import {EditProductComponent} from "./product/edit-product/edit-product.componen
 import {NewCustomerComponent} from "./customer/new-customer/new-customer.component";
 import {EditCustomerComponent} from "./customer/edit-customer/edit-customer.component";
 import {BillsComponent} from "./bill/bills/bills.component";
+import {EditBillComponent} from "./bill/edit-bill/edit-bill.component";
 
 const routes: Routes = [
   {path : "login", component : LoginComponent},
@@ -23,6 +24,7 @@ const routes: Routes = [
       {path : "newCustomer", component : NewCustomerComponent},
       {path : "editCustomer/:id", component : EditCustomerComponent},
       {path : "bills", component : BillsComponent},
+      {path : "editBill/:id", component : EditBillComponent},
     ]},
 ];
 

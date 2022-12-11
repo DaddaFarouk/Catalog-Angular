@@ -13,27 +13,19 @@ import {CustomerService} from "../customer/customer.service";
 })
 export class BillService {
 
-  private readonly billsGatewayUrl: string;
+  private readonly billsGetUrl: string;
   private readonly billsServiceUrl: string;
 
   constructor(private http: HttpClient,
               private productService : ProductService,
               private customerService : CustomerService
   ) {
-    this.billsGatewayUrl = 'http://localhost:8888/BILLING-SERVICE/fullBills';
-    this.billsServiceUrl = 'http://localhost:8083/bills';
+    this.billsGetUrl = 'http://localhost:8888/BILLING-SERVICE/fullBills';
+    this.billsServiceUrl = 'http://localhost:8083/fullBill';
   }
 
   public findAll(): Observable<Bill[]> {
-    return this.http.get<Bill[]>(this.billsGatewayUrl);
-  }
-
-  public getProduct(id: number) : Observable<Product> {
-    return this.productService.getProduct(id);
-  }
-
-  public getProductItems(link: string) : Observable<any> {
-    return this.http.get<any>(link);
+    return this.http.get<Bill[]>(this.billsGetUrl);
   }
 
   public getCustomer(id: number) : Observable<Customer> {
@@ -65,10 +57,10 @@ export class BillService {
     return this.http.post<Bill>(this.billsServiceUrl,bill);
   }
 
-  public getBill(id : string) : Observable<Bill> {
-    let product = this.http.get<Bill>(this.billsServiceUrl + "/" + id)
-    if(product == undefined) return throwError(()=> new Error("Product not found"));
-    return product;
+  public getBill(id : number) : Observable<Bill> {
+    let bill = this.http.get<Bill>(this.billsServiceUrl + "/" + id)
+    if(bill == undefined) return throwError(()=> new Error("Product not found"));
+    return bill;
   }
 
   public getErrorMessage(fieldName: string, errors: ValidationErrors) {

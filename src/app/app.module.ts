@@ -17,6 +17,7 @@ import { EditCustomerComponent } from './customer/edit-customer/edit-customer.co
 import {CustomerService} from "./services/customer/customer.service";
 import { BillsComponent } from './bill/bills/bills.component';
 import {BillService} from "./services/bill/bill.service";
+import { EditBillComponent } from './bill/edit-bill/edit-bill.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {BillService} from "./services/bill/bill.service";
     EditProductComponent,
     NewCustomerComponent,
     EditCustomerComponent,
-    BillsComponent
+    BillsComponent,
+    EditBillComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,33 @@
+<div class="container mt-3 col-md-6 offset-md-3">
+  <form [formGroup]="billFormGroup" *ngIf="billFormGroup" (ngSubmit)="handleUpdateBill()">
+    <div class="mb-3">
+      <label class="form-label">ID : </label>
+      <label class="form-label">{{bill.id}}</label>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Date</label>
+      <input type="date" formControlName="date" class="form-control">
+      <small *ngIf="billFormGroup.controls['date'].errors && billFormGroup.controls['date'].touched" class="text-danger">
+        {{billService.getErrorMessage('Date', billFormGroup.controls['date'].errors)}}
+      </small>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Customer ID</label>
+      <input type="text" formControlName="customerID" class="form-control">
+      <small *ngIf="billFormGroup.controls['customerID'].errors && billFormGroup.controls['customerID'].touched" class="text-danger">
+        {{billService.getErrorMessage('CustomerID', billFormGroup.controls['customerID'].errors)}}
+      </small>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Product</label>
+      {{bill.productItems}}
+      <small *ngIf="billFormGroup.controls['customerID'].errors && billFormGroup.controls['customerID'].touched" class="text-danger">
+        {{billService.getErrorMessage('CustomerID', billFormGroup.controls['customerID'].errors)}}
+      </small>
+    </div>
+    <button [disabled]="!billFormGroup.valid" class="btn btn-info" type="submit">Save</button>
+  </form>
+</div>
+
+
+
