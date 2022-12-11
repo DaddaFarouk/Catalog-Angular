@@ -30,7 +30,7 @@ export class BillsComponent implements OnInit {
     });
   }
 
-  getAllBills() : void {
+  getAllBills(){
     this.billService.findAll().subscribe({
       next : (value) => {
          this.bills = value;
@@ -61,10 +61,10 @@ export class BillsComponent implements OnInit {
   handleSearchBills() {
     this.currentAction = "search";
     let keyword = this.searchFormGroup.value.keyword;
-    if (keyword==""){
+    if (keyword=="" || keyword==null){
       this.getAllBills();
     } else {
-      this.billService.searchBill(keyword,this.bills).subscribe({
+      this.billService.searchBill(keyword).subscribe({
         next:(data)=>{
           this.bills = data;
         }

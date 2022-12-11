@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ProductService} from "../../services/product/product.service";
 import {Product} from "../../models/product.model";
 import {FormBuilder, FormGroup} from "@angular/forms";
@@ -63,13 +63,13 @@ export class ProductsComponent implements OnInit {
   handleSearchProducts() {
     this.currentAction = "search";
     let keyword = this.searchFormGroup.value.keyword;
-    if (keyword==""){
+    if (keyword=="" || keyword==null){
       this.getAllProducts();
     } else {
-      this.productService.searchProduct(keyword,this.products).subscribe({
-        next:(data)=>{
-          this.products = data;
-        }
+      this.productService.findAll().subscribe((data) => {
+        // @ts-ignore
+        let result : Product[] = data["_embedded"]["products"];
+        this.products = result.filter((r)=> r.name.toLowerCase().includes(keyword.toLowerCase()));
       });
     }
   }

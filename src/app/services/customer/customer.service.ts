@@ -24,11 +24,6 @@ export class CustomerService {
     return this.http.delete<boolean>(this.customersServiceUrl + "/" + customer.id);
   }
 
-  public searchCustomer(keyword:string,customers:Array<Customer>):Observable<Array<Customer>>{
-    let result = customers.filter(p=>p.name.toLowerCase().includes(keyword.toLowerCase()));
-    return of(result)
-  }
-
   public addNewCustomer(customer : Customer) : Observable<Customer>{
     return this.http.post<Customer>(this.customersServiceUrl,customer);
   }

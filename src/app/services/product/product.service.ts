@@ -24,11 +24,6 @@ export class ProductService {
     return this.http.delete<boolean>(this.productsServiceUrl + "/" + product.id);
   }
 
-  public searchProduct(keyword:string,products:Array<Product>):Observable<Array<Product>>{
-    let result = products.filter(p=>p.name.toLowerCase().includes(keyword.toLowerCase()));
-    return of(result)
-  }
-
   public addNewProduct(product : Product) : Observable<Product>{
     return this.http.post<Product>(this.productsServiceUrl,product);
   }

@@ -44,8 +44,20 @@ export class BillService {
     return this.http.delete<boolean>(this.billsServiceUrl + "/" + bill.id);
   }
 
-  public searchBill(keyword:string,bills:Array<Bill>):Observable<Array<Bill>>{
-    let result = bills.filter(b=>b.productItems.find((productItem) => {productItem.productName.toLowerCase().includes(keyword.toLowerCase())}));
+  public searchBill(keyword:string):Observable<Array<Bill>>{
+    let result = new Array<Bill>();
+    this.findAll().subscribe({
+      next : (bills) => {
+        bills.forEach((bill) => {
+          bill.productItems.forEach((productItem) => {
+            if(productItem.productName.toLowerCase().includes(keyword.toLowerCase())){
+              result.push(bill);
+              return;
+            }
+          })
+        })
+      }
+    })
     return of(result)
   }
 

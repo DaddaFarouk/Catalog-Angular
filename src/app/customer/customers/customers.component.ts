@@ -53,14 +53,16 @@ export class CustomersComponent implements OnInit {
   handleSearchCustomers() {
     this.currentAction = "search";
     let keyword = this.searchFormGroup.value.keyword;
-    if (keyword==""){
+    if (keyword=="" || keyword==null){
       this.getAllCustomers();
     } else {
-      this.customerService.searchCustomer(keyword,this.customers).subscribe({
-        next:(data)=>{
-          this.customers = data;
+      this.customerService.findAll().subscribe(
+        (customers) => {
+          // @ts-ignore
+          let result : Customer[] = customers["_embedded"]["customers"];
+          this.customers = result.filter((customer) => customer.name.toLowerCase().includes(keyword.toLowerCase()));
         }
-      });
+      )
     }
   }
 

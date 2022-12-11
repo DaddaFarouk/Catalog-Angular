@@ -36,7 +36,7 @@
           <td>{{b.id}}</td>
           <td>{{b.billingDate | date:'fullDate'}}</td>
           <td>{{b.customerID}}</td>
-          <td>{{b.customer.name}}</td>
+          <td>{{b?.customer?.name}}</td>
           <td>
             <table class="table table-hover">
               <thead>
