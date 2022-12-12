@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable, of, throwError} from "rxjs";
 import {ValidationErrors} from "@angular/forms";
 import {Bill} from "../../models/bill.model";
 import {ProductService} from "../product/product.service";
-import {Product} from "../../models/product.model";
 import {Customer} from "../../models/customer.model";
 import {CustomerService} from "../customer/customer.service";
+import {ProductItem} from "../../models/productItem.model";
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +15,17 @@ export class BillService {
 
   private readonly billsGetUrl: string;
   private readonly billsServiceUrl: string;
+  private readonly productItemsServiceUrl: string;
+  private readonly addProductItemsServiceUrl: string;
 
   constructor(private http: HttpClient,
               private productService : ProductService,
-              private customerService : CustomerService
+              private customerService : CustomerService,
   ) {
     this.billsGetUrl = 'http://localhost:8888/BILLING-SERVICE/fullBills';
     this.billsServiceUrl = 'http://localhost:8083/fullBill';
+    this.productItemsServiceUrl = 'http://localhost:8083/productItems';
+    this.addProductItemsServiceUrl = 'http://localhost:8083/addBill';
   }
 
   public findAll(): Observable<Bill[]> {
@@ -66,17 +70,19 @@ export class BillService {
   public getErrorMessage(fieldName: string, errors: ValidationErrors) {
     if(errors['required']) {
       return fieldName + " is Required";
-    } else if (errors['min']){
-      return fieldName + " should have at least a value of "+ errors['min']['min'];
-    } else if (errors['minlength']){
-      return fieldName + " should have at least "+ errors['minlength']['requiredLength']+" Characters";
-    } else if (errors['email']){
-      return "Please enter a valid "+ fieldName;
     }
     else return "";
   }
 
   public updateBill(bill : Bill) : Observable<Bill> {
     return this.http.put<Bill>(this.billsServiceUrl + "/" + bill.id, bill);
+  }
+
+  public deleteProductItem(p: ProductItem) : Observable<boolean> {
+    return this.http.delete<boolean>(this.productItemsServiceUrl + "/" + p.id);
+  }
+
+  public addNewProductItem(productItem: ProductItem) : Observable<ProductItem>{
+    return this.http.post<ProductItem>(this.addProductItemsServiceUrl,productItem);
   }
 }

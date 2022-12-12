@@ -6,4 +6,5 @@ export interface Bill {
   customerID : number;
   productItems : ProductItem[];
   customer : Customer;
+  totalPrice : number;
 }

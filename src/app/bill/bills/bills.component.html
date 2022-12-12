@@ -28,20 +28,20 @@
       <table class="table table-hover mt-2">
         <thead>
         <tr class="text-center">
-          <th>ID</th> <th>Billing Date</th><th>Customer Id</th><th>Customer Name</th><th>Product Items</th><th></th><th></th>
+          <th>ID</th> <th>Billing Date</th><th>Customer Id</th><th>Customer Name</th><th>Product Items</th><th>Total</th><th></th><th></th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let b of bills" class="text-center align-middle">
           <td>{{b.id}}</td>
           <td>{{b.billingDate | date:'fullDate'}}</td>
-          <td>{{b.customerID}}</td>
-          <td>{{b?.customer?.name}}</td>
+          <td *ngIf="b.customer">{{b.customerID}}</td>
+          <td *ngIf="b.customer">{{b.customer.name}}</td>
           <td>
             <table class="table table-hover">
               <thead>
               <tr class="text-center">
-                <th>ID</th> <th>Product Name</th><th>Quantity</th><th>Price</th>
+                <th>ID</th> <th>Product Name</th><th>Quantity</th><th>Total Price</th>
               </tr>
               </thead>
               <tbody *ngFor="let p of b.productItems">
@@ -51,6 +51,9 @@
                 <td>{{p.price}}</td>
               </tbody>
             </table>
+          </td>
+          <td>
+            {{b.totalPrice+" "}} Dh
           </td>
           <td *ngIf="authService.hasRole('ADMIN')">
             <button (click)="handleDeleteBill(b)" class="btn btn-danger">

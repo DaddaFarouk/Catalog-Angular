@@ -23,8 +23,8 @@ export class NewCustomerComponent implements OnInit {
   }
 
   handleAddProduct() {
-    let product = this.customerFormGroup.value;
-    this.customerService.addNewCustomer(product).subscribe({
+    let customer = this.customerFormGroup.value;
+    this.customerService.addNewCustomer(customer).subscribe({
       next: () => {
         this.customerFormGroup.reset();
         alert("Customer added successfully");
