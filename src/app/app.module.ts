@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -18,7 +18,23 @@ import {CustomerService} from "./services/customer/customer.service";
 import { BillsComponent } from './bill/bills/bills.component';
 import {BillService} from "./services/bill/bill.service";
 import { EditBillComponent } from './bill/edit-bill/edit-bill.component';
+import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
 
+export function kcFactory(kcService : KeycloakService){
+  return () => {
+    kcService.init({
+      config : {
+        realm : "catalogue-realm",
+        clientId : "catalogue-client",
+        url : "http://localhost:8080"
+      },
+      initOptions : {
+        onLoad : "check-sso",
+        checkLoginIframe : true
+      },
+    })
+  }
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,9 +53,11 @@ import { EditBillComponent } from './bill/edit-bill/edit-bill.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    KeycloakAngularModule
   ],
   providers: [
+    {provide : APP_INITIALIZER, deps : [KeycloakService], useFactory : kcFactory, multi : true},
     ProductService,
     CustomerService,
     BillService
